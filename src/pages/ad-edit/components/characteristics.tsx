@@ -10,7 +10,7 @@ import { CharacteristicInput } from "./characteristic-input";
 import { CharacteristicSelect } from "./characteristic-select";
 
 import { useAdDetailQuery } from "@/features/ads/hooks/useAdDetailQuery";
-import { getCharacteristicFields } from "../utils/get-characteristic-fields";
+import { CHARACTERISTIC_FIELDS } from "../constants";
 
 import type { ItemCategory, ItemEditFormValues } from "@/features/ads/schema";
 
@@ -29,7 +29,7 @@ export function Characteristics() {
 
   if (!category) return null;
 
-  const fields = getCharacteristicFields(category);
+  const fields = CHARACTERISTIC_FIELDS[category];
 
   return (
     <FieldSet className="w-[456px]">
@@ -45,6 +45,7 @@ export function Characteristics() {
                 key={`${category}-${field.key}`}
                 name={fieldPath}
                 label={field.label}
+                placeholder={field.placeholder}
                 options={field.options}
                 category={category}
                 fieldKey={field.key}
@@ -57,6 +58,7 @@ export function Characteristics() {
               key={`${category}-${field.key}`}
               name={fieldPath}
               label={field.label}
+              placeholder={field.placeholder}
               inputType={field.inputType}
             />
           );

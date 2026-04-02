@@ -15,9 +15,7 @@ const queryKeys = {
   detail: (id: string) => ["items", "detail", id] as const,
 };
 
-async function fetchItems(
-  params: ItemsListParams,
-): Promise<ItemsListResponse> {
+async function fetchItems(params: ItemsListParams): Promise<ItemsListResponse> {
   const { categories, ...rest } = params;
   const { data } = await http.get("/items", {
     params: {
@@ -40,12 +38,12 @@ async function fetchItemById(id: string): Promise<ItemDetail> {
   return ItemDetailSchema.parse(data);
 }
 
-async function updateItem(
-  id: string,
-  payload: ItemEditPayload,
-): Promise<ItemDetail> {
-  const { data } = await http.put(`/items/${id}`, payload);
-  return ItemDetailSchema.parse(data);
+async function updateItem(id: string, payload: ItemEditPayload) {
+  const response = await http.put<{ success: boolean; error?: string }>(
+    `/items/${id}`,
+    payload,
+  );
+  return response.data.success;
 }
 
 export const adsService = {

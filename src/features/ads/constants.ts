@@ -75,30 +75,6 @@ export const VALUE_LABELS: Record<string, Record<string, string>> = {
   condition: CONDITION_OPTIONS,
 };
 
-export const CATEGORY_SELECT_OPTIONS: Record<
-  ItemCategory,
-  Record<string, Record<string, string>>
-> = {
-  auto: {
-    transmission: TRANSMISSION_OPTIONS,
-  },
-  real_estate: {
-    type: REAL_ESTATE_TYPE_OPTIONS,
-  },
-  electronics: {
-    type: ELECTRONICS_TYPE_OPTIONS,
-    condition: CONDITION_OPTIONS,
-  },
-};
-
-export const NUMERIC_PARAM_KEYS: ReadonlyArray<string> = [
-  "yearOfManufacture",
-  "mileage",
-  "enginePower",
-  "area",
-  "floor",
-];
-
 export function formatParamValue(key: string, value: unknown): string {
   const labels = VALUE_LABELS[key];
   if (labels && typeof value === "string" && value in labels) {

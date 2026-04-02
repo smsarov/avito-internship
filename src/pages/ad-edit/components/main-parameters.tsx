@@ -79,6 +79,7 @@ export function MainParameters() {
             className="peer aria-invalid:ring-accent aria-invalid:not-focus:ring-danger-foreground"
             placeholder="Введите название"
             aria-invalid={!!errors.title}
+            required
             {...titleReg}
           />
           {!!errors.title && (
@@ -99,6 +100,7 @@ export function MainParameters() {
             placeholder="Введите цену"
             type="number"
             aria-invalid={!!errors.price}
+            required
             {...priceReg}
           />
           {!!errors.price && (
@@ -122,11 +124,13 @@ function MainParametersSkeleton() {
       <FieldSeparator />
       <FieldSet className="w-[456px]">
         <FieldLegend>Название</FieldLegend>
+        <input required className="hidden" />
         <div className="h-8 w-full rounded-lg bg-muted animate-pulse" />
       </FieldSet>
       <FieldSeparator />
       <FieldSet className="w-[456px]">
         <FieldLegend>Цена</FieldLegend>
+        <input required className="hidden" />
         <div className="h-8 w-full rounded-lg bg-muted animate-pulse" />
       </FieldSet>
     </>

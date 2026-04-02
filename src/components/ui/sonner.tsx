@@ -1,47 +1,39 @@
-import { useTheme } from "next-themes"
-import { Toaster as Sonner, type ToasterProps } from "sonner"
-import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
+import { Toaster as Sonner, type ToasterProps } from "sonner";
+
+import SuccessIcon from "@icons/success.svg";
+import ErrorIcon from "@icons/error.svg";
+
+const toastClassNames: NonNullable<ToasterProps["toastOptions"]>["classNames"] =
+  {
+    toast:
+      "group/toast relative flex gap-2.5 w-[328px] px-4 py-[9px] rounded-[2px] ring-1 ring-inset text-foreground/85",
+    success: "bg-success ring-success-border",
+    error: "bg-danger ring-danger-border",
+
+    title: "font-normal text-sm leading-[22px]",
+    description: "mt-1.5 font-normal text-sm leading-[22px]",
+    content: "flex min-w-0 flex-1 flex-col gap-0.5 pr-7",
+    icon: "mt-0.5 shrink-0 [&_svg]:size-4.5",
+  };
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
 
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      position="top-right"
+      richColors={false}
       className="toaster group"
       icons={{
-        success: (
-          <CircleCheckIcon className="size-4" />
-        ),
-        info: (
-          <InfoIcon className="size-4" />
-        ),
-        warning: (
-          <TriangleAlertIcon className="size-4" />
-        ),
-        error: (
-          <OctagonXIcon className="size-4" />
-        ),
-        loading: (
-          <Loader2Icon className="size-4 animate-spin" />
-        ),
+        success: <SuccessIcon className="text-success-foreground" />,
+        error: <ErrorIcon className="text-danger-foreground" />,
       }}
-      style={
-        {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
-          "--border-radius": "var(--radius)",
-        } as React.CSSProperties
-      }
       toastOptions={{
-        classNames: {
-          toast: "cn-toast",
-        },
+        unstyled: true,
+        classNames: toastClassNames,
       }}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Toaster }
+export { Toaster };

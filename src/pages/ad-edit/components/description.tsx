@@ -5,12 +5,13 @@ import { FieldSet, FieldLegend } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { Typography } from "@/components/ui/typography";
 
+import {
+  MAX_DESCRIPTION_LENGTH,
+  type ItemEditFormValues,
+} from "@/features/ads/schema";
 import { useAdDetailQuery } from "@/features/ads/hooks/useAdDetailQuery";
 
 import { cn } from "@/lib/utils";
-import type { ItemEditFormValues } from "@/features/ads/schema";
-
-const MAX_DESCRIPTION_LENGTH = 1000;
 
 export function Description() {
   const [count, setCount] = useState(0);
@@ -34,7 +35,6 @@ export function Description() {
         rows={10}
         placeholder="Введите описание"
         {...register("description", {
-          maxLength: MAX_DESCRIPTION_LENGTH,
           onChange: (e) => setCount(e.target.value.length),
         })}
       />

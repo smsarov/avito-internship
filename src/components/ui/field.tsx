@@ -10,13 +10,15 @@ function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
     <fieldset
       data-slot="field-set"
       className={cn(
-        "flex flex-col gap-2",
+        "group/fieldset flex flex-col gap-2",
         className
       )}
       {...props}
     />
   )
 }
+
+const requiredLegendIndicator = "group-has-[input[required]]/fieldset:before:content-['*'] group-has-[input[required]]/fieldset:before:inline-block group-has-[input[required]]/fieldset:before:align-middle group-has-[input[required]]/fieldset:before:mr-1 group-has-[input[required]]/fieldset:before:font-semibold group-has-[input[required]]/fieldset:before:text-destructive group-has-[input[required]]/fieldset:before:leading-none group-has-[input[required]]/fieldset:before:relative group-has-[input[required]]/fieldset:before:top-[0.06em]"
 
 function FieldLegend({
   className,
@@ -29,6 +31,7 @@ function FieldLegend({
       data-variant={variant}
       className={cn(
         "font-semibold text-base mb-2 leading-[140%] text-foreground/85",
+        requiredLegendIndicator,
         className
       )}
       {...props}
@@ -96,6 +99,8 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+const requiredLabelIndicator = "group-has-[input[required]]/field:before:content-['*'] group-has-[input[required]]/field:before:inline-block group-has-[input[required]]/field:before:align-middle group-has-[input[required]]/field:before:mr-1 group-has-[input[required]]/field:before:font-semibold group-has-[input[required]]/field:before:text-destructive group-has-[input[required]]/field:before:leading-none group-has-[input[required]]/field:before:relative group-has-[input[required]]/field:before:top-[0.06em]"
+
 function FieldLabel({
   className,
   ...props
@@ -107,6 +112,7 @@ function FieldLabel({
         "leading-[22px] text-foreground/85 font-normal",
         "group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-data-checked:border-primary/30 has-data-checked:bg-primary/5 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border *:data-[slot=field]:p-2.5 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10",
         "has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
+        requiredLabelIndicator,
         className
       )}
       {...props}

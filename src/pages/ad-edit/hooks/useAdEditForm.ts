@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useRef } from "react";
-import { useForm, useWatch, type Resolver } from "react-hook-form";
+import { useEffect, useMemo } from "react";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAdDetailQuery } from "@/features/ads/hooks/useAdDetailQuery";
-import { ItemEditSchema, type ItemCategory, type ItemEditFormValues } from "@/features/ads/schema";
+import { ItemEditSchema, type ItemEditFormValues } from "@/features/ads/schema";
 
 import { itemToFormValues } from "../utils/item-to-form-values";
 
@@ -21,29 +21,22 @@ export function useAdEditForm() {
     values: valuesFromServer,
   });
 
-  const category = useWatch({ control: methods.control, name: "category" });
-  const prevCategoryRef = useRef<ItemCategory | undefined>(undefined);
-
   useEffect(() => {
-    prevCategoryRef.current = undefined;
-  }, [item?.id]);
+    const sub = methods.watch((_, { name }) => {
+      if (name !== "category" || !valuesFromServer) return;
 
-  useEffect(() => {
-    if (category === undefined) return;
+      const category = methods.getValues("category");
+      const params = category === valuesFromServer.category
+        ? valuesFromServer.params
+        : {};
 
-    if (prevCategoryRef.current === undefined) {
-      prevCategoryRef.current = category;
-      return;
-    }
-
-    if (prevCategoryRef.current !== category) {
-      methods.setValue("params", {}, {
+      methods.setValue("params", params, {
         shouldValidate: true,
         shouldDirty: true,
       });
-      prevCategoryRef.current = category;
-    }
-  }, [category, methods]);
+    });
+    return () => sub.unsubscribe();
+  }, [methods, valuesFromServer]);
 
   return { methods, isLoading, isError };
 }

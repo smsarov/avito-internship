@@ -11,8 +11,8 @@ export const CATEGORY_LABELS: Record<ItemCategory, string> = {
 };
 
 export const AutoItemParamsSchema = z.object({
-  brand: z.coerce.string().optional(),
-  model: z.coerce.string().optional(),
+  brand: z.string().optional(),
+  model: z.string().optional(),
   yearOfManufacture: z.coerce.number().optional(),
   transmission: z.enum(["automatic", "manual"]).optional(),
   mileage: z.coerce.number().optional(),
@@ -21,7 +21,7 @@ export const AutoItemParamsSchema = z.object({
 
 export const RealEstateItemParamsSchema = z.object({
   type: z.enum(["flat", "house", "room"]).optional(),
-  address: z.coerce.string().optional(),
+  address: z.string().optional(),
   area: z.coerce.number().optional(),
   floor: z.coerce.number().optional(),
 });
@@ -92,10 +92,12 @@ export type ItemsListParams = {
   sortDirection?: "asc" | "desc";
 };
 
+export const MAX_DESCRIPTION_LENGTH = 1000;
+
 const ItemEditBaseSchema = z.object({
   title: z.string().min(1, "Название должно быть заполнено"),
-  description: z.string().optional(),
   price: z.coerce.number("Пожалуйста, введите число").min(0, "Цена должна быть неотрицательной").nullable(),
+  description: z.string().max(MAX_DESCRIPTION_LENGTH, `Описание не должно превышать ${MAX_DESCRIPTION_LENGTH} символов`).optional(),
 });
 
 export const ItemEditSchema = z.discriminatedUnion("category", [
