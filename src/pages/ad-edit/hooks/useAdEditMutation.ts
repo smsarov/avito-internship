@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { adsService } from "@/features/ads/service";
+import { queryKeys } from "@/features/ads/query-keys";
 import {
   type ItemDetail,
   type ItemEditFormValues,
@@ -28,7 +29,7 @@ export function useAdEditMutation() {
       return adsService.updateItem(id!, payload);
     },
     onSuccess: (_, formValues) => {
-      const queryKey = adsService.queryKeys.detail(id!);
+      const queryKey = queryKeys.detail(id!);
       const cached = queryClient.getQueryData<ItemDetail>(queryKey);
 
       if (cached) {

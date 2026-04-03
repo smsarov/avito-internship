@@ -12,12 +12,6 @@ import {
   type ItemSuggestPayload,
 } from "./schema";
 
-const queryKeys = {
-  all: ["items"] as const,
-  list: (params: ItemsListParams) => ["items", "list", params] as const,
-  detail: (id: string) => ["items", "detail", id] as const,
-};
-
 async function fetchItems(params: ItemsListParams): Promise<ItemsListResponse> {
   const { categories, ...rest } = params;
   const { data } = await http.get("/items", {
@@ -50,7 +44,6 @@ async function updateItem(id: string, payload: ItemEditPayload) {
 }
 
 async function getAiPrice(payload: ItemSuggestPayload): Promise<number> {
-  console.log("getAiPrice", payload);
   const { data } = await http.post("/items/suggestions/price", payload);
   const result = AiPriceResponseSchema.safeParse(data);
 
@@ -62,7 +55,6 @@ async function getAiPrice(payload: ItemSuggestPayload): Promise<number> {
 }
 
 async function getAiDescription(payload: ItemSuggestPayload): Promise<string> {
-  console.log("getAiDescription", payload);
   const { data } = await http.post("/items/suggestions/description", payload);
   const result = AiDescriptionResponseSchema.safeParse(data);
 
@@ -74,7 +66,6 @@ async function getAiDescription(payload: ItemSuggestPayload): Promise<string> {
 }
 
 export const adsService = {
-  queryKeys,
   fetchItems,
   fetchItemById,
   updateItem,

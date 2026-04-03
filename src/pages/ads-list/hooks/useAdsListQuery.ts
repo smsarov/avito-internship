@@ -1,6 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { adsService } from "@/features/ads/service";
+import { queryKeys } from "@/features/ads/query-keys";
 import type { ItemCategory } from "@/features/ads/schema";
 
 import { buildServerParams } from "@/features/ads/utils/build-server-params";
@@ -37,7 +38,7 @@ export function useAdsListQuery() {
   });
 
   return useQuery({
-    queryKey: adsService.queryKeys.list(serverParams),
+    queryKey: queryKeys.list(serverParams),
     queryFn: () => adsService.fetchItems(serverParams),
     select: isPriceSort
       ? (data) => ({
