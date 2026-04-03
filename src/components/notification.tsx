@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const notificationVariants = cva(
-  "group flex flex-row items-start h-fit shadow-[0_3px_6px_-4px_rgba(0,0,0,0.12),0_6px_16px_0_rgba(0,0,0,0.08),0_9px_28px_8px_rgba(0,0,0,0.05)]",
+  "group flex flex-row items-start h-fit shadow-[var(--shadow-notification)]",
   {
     variants: {
       variant: {
@@ -67,7 +67,7 @@ Notification.Title = function NotificationTitle({
   return (
     <div
       className={cn(
-        "font-semibold text-[#1E1E1E]",
+        "font-semibold text-notification-title-foreground",
         "group-data-[size=default]:text-base group-data-[size=default]:leading-[24px]",
         "group-data-[variant=danger]:text-danger-foreground-secondary",
         className,

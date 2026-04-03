@@ -10,12 +10,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-background text-foreground/85 ring ring-inset ring-[#D9D9D9] disabled:text-[#D9D9D9] aria-disabled:text-[#D9D9D9]",
-        muted: "bg-[#D9D9D9] text-[#5A5A5A]",
-        accent: "bg-accent text-background disabled:bg-[#D9D9D9] disabled:text-[#F3F3F3]",
+          "bg-background text-foreground/85 ring ring-inset ring-control-border disabled:text-control-border aria-disabled:text-control-border",
+        muted: "bg-control-border text-button-muted-foreground",
+        accent:
+          "bg-accent text-background disabled:bg-control-border disabled:text-button-accent-disabled-foreground",
         outline: "bg-background text-accent ring ring-inset ring-accent",
         warning: "bg-warning text-warning-foreground",
-        danger: "bg-danger-tertiary text-foreground/85 ring ring-inset ring-[#D9D9D9]"
+        danger:
+          "bg-danger-tertiary text-foreground/85 ring ring-inset ring-control-border",
       },
       size: {
         default:

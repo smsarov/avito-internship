@@ -95,7 +95,7 @@ export function Markdown({
       className={cn(
         variant === "field" &&
           !readOnly &&
-          "flex min-h-16 w-full rounded-lg ring ring-inset ring-[#D9D9D9] bg-transparent px-2.5 py-2 text-base transition-colors focus-within:ring-1 focus-within:ring-accent focus-within:outline-2 focus-within:outline-[#188fff33] aria-invalid:ring-1 aria-invalid:ring-danger-foreground dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+          "flex min-h-16 w-full rounded-lg ring ring-inset ring-control-border bg-transparent px-2.5 py-2 text-base transition-colors focus-within:ring-1 focus-within:ring-accent focus-within:outline-2 focus-within:outline-focus-outline-accent aria-invalid:ring-1 aria-invalid:ring-danger-foreground dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
         variant === "plain" &&
           typography === "body" &&
           "text-base leading-[140%] font-normal",

@@ -24,7 +24,7 @@ export function AdDetailsPage() {
   return (
     <div className="w-full flex flex-col gap-8">
       <Header item={item} />
-      <Separator className="bg-[#E0E0E0]" />
+      <Separator className="bg-separator-line" />
       <Content item={item} />
     </div>
   );

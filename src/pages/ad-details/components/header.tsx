@@ -33,7 +33,7 @@ export function Header({ item }: HeaderProps) {
             Редактировать <EditIcon className="size-4.5" />
           </Link>
         </Button>
-        <div className="flex flex-col gap-1 items-start md:items-end text-[#848388]">
+        <div className="flex flex-col gap-1 items-start md:items-end text-metadata-caption">
           <Typography.P className="text-md">
             Опубликовано: {formatDate(item.createdAt)}
           </Typography.P>

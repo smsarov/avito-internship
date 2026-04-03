@@ -67,7 +67,7 @@ export function Card({ variant, item }: CardProps) {
             </Badge>
           )}
           {variant === "horizontal" && (
-            <Typography.P className="font-normal text-[#848388]">
+            <Typography.P className="font-normal text-metadata-caption">
               {CATEGORY_LABELS[category]}
             </Typography.P>
           )}

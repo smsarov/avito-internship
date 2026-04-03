@@ -10,7 +10,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-background text-foreground/85 ring ring-inset ring-[#D9D9D9]",
+          "bg-background text-foreground/85 ring ring-inset ring-control-border",
         warning:
           "bg-warning text-warning-foreground",
       },

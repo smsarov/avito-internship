@@ -23,7 +23,7 @@ function Switch({
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
         className={cn(
-          "pointer-events-none shrink-0 rounded-[16px] bg-white shadow-[0_2px_4px_0_rgba(0,35,11,0.2)] ring-0 dark:bg-white",
+          "pointer-events-none shrink-0 rounded-[16px] bg-switch-thumb-background shadow-[var(--shadow-switch-thumb)] ring-0 dark:bg-switch-thumb-background",
           /* default: absolute thumb, equal 3px inset via left + track-relative calc */
           "group-data-[size=default]/switch:absolute group-data-[size=default]/switch:top-1/2 group-data-[size=default]/switch:size-[18px] group-data-[size=default]/switch:-translate-y-1/2 group-data-[size=default]/switch:transition-[left] group-data-[size=default]/switch:duration-200 group-data-[size=default]/switch:data-[state=unchecked]:left-[2px] group-data-[size=default]/switch:data-[state=checked]:left-[calc(100%-20px)]",
           /* sm: in-flow thumb + translate (narrow track) */

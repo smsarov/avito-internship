@@ -82,7 +82,7 @@ export function Filters() {
             </AccordionItem>
           </Accordion>
         </CardContent>
-        <CardFooter className="flex items-center justify-between gap-3 bg-background px-0 py-2.5 pb-4">
+        <CardFooter className="flex items-center justify-between gap-3 px-0 py-2.5 pb-4">
           <Typography.P className="font-semibold leading-[1.4]">
             Только требующие доработок
           </Typography.P>

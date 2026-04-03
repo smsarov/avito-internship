@@ -14,7 +14,7 @@ export function ViewToggle() {
   const dispatch = useAdsListDispatch();
 
   return (
-    <div className="relative box-border flex h-8 w-[72px] shrink-0 items-center rounded-lg bg-[#F6F6F8] px-2">
+    <div className="relative box-border flex h-8 w-[72px] shrink-0 items-center rounded-lg bg-segmented-control-background px-2">
       <ToggleGroup
         type="single"
         value={view}

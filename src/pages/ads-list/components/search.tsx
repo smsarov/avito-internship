@@ -13,7 +13,7 @@ export function Search() {
   const dispatch = useAdsListDispatch();
 
   return (
-    <InputGroup className="flex-1 ring-transparent bg-background-secondary placeholder:text-[#707176]">
+    <InputGroup className="flex-1 ring-transparent bg-background-secondary placeholder:text-input-placeholder-muted">
       <InputGroupInput
         placeholder="Найти объявление..."
         type="text"
