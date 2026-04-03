@@ -289,7 +289,6 @@
 }
 
 @layer components {
-  /* Accent buttons use `text-background`; in dark mode `--background` is dark, so force readable text on accent. */
   .dark [data-slot="button"][data-variant="accent"] {
     color: oklch(0.985 0 0);
   }

@@ -9,45 +9,38 @@ import { toggleVariants } from "@/components/ui/toggle"
 
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants> & {
-    spacing?: number
     orientation?: "horizontal" | "vertical"
   }
 >({
   size: "default",
   variant: "default",
-  spacing: 0,
   orientation: "horizontal",
 })
 
 function ToggleGroup({
   className,
-  variant,
   size,
-  spacing = 0,
   orientation = "horizontal",
   children,
   ...props
 }: React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
   VariantProps<typeof toggleVariants> & {
-    spacing?: number
     orientation?: "horizontal" | "vertical"
   }) {
+
   return (
     <ToggleGroupPrimitive.Root
       data-slot="toggle-group"
-      data-variant={variant}
       data-size={size}
-      data-spacing={spacing}
       data-orientation={orientation}
-      style={{ "--gap": spacing } as React.CSSProperties}
       className={cn(
-        "group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-vertical:flex-col data-vertical:items-stretch",
+        "group/toggle-group h-8 px-2 gap-[21px] bg-segmented-control-background flex flex-row items-center rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-vertical:flex-col data-vertical:items-stretch",
         className
       )}
       {...props}
     >
       <ToggleGroupContext.Provider
-        value={{ variant, size, spacing, orientation }}
+        value={{ size, orientation }}
       >
         {children}
       </ToggleGroupContext.Provider>
@@ -70,9 +63,8 @@ function ToggleGroupItem({
       data-slot="toggle-group-item"
       data-variant={context.variant || variant}
       data-size={context.size || size}
-      data-spacing={context.spacing}
       className={cn(
-        "shrink-0 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-2 focus:z-10 focus-visible:z-10 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-lg group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "shrink-0 focus:z-10 focus-visible:z-10  data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:relative data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:pointer-events-none data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:absolute  data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:left-full data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:ml-2.5 data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:h-[26px] data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:w-[2px] data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:-translate-x-1/2 data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:bg-background data-[variant=default]:group-data-[orientation=horizontal]/toggle-group:not-last:after:content-['']",
         toggleVariants({
           variant: context.variant || variant,
           size: context.size || size,

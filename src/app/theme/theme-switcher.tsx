@@ -37,13 +37,11 @@ export function ThemeSwitcher() {
 
   return (
     <ToggleGroup
-      className="pointer-events-auto fixed bottom-8 right-8 z-50"
       type="single"
       value={theme}
       onValueChange={(v) => v && persistTheme(v as ThemePreference)}
-      variant="outline"
       size="sm"
-      spacing={0}
+      className="pointer-events-auto fixed bottom-8 h-8 right-8 z-50 ring ring-separator-line"
       aria-label="Тема оформления"
     >
       <ToggleGroupItem value="light" aria-label="Светлая тема">
