@@ -1,7 +1,15 @@
+import ClearIcon from "@icons/clear.svg";
 import { useFormContext, type FieldPath } from "react-hook-form";
 
 import { Field, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupButton,
+  InputGroupAddon,
+} from "@/components/ui/input-group";
+
+import { useFieldClear } from "@/pages/ad-edit/hooks/useFieldClear";
 
 import type { ItemEditFormValues } from "@/features/ads/schema";
 
@@ -19,18 +27,30 @@ export function CharacteristicInput({
   inputType,
 }: CharacteristicInputProps) {
   const { register } = useFormContext<ItemEditFormValues>();
+  const handleClear = useFieldClear(name);
 
   return (
     <Field>
       <FieldLabel>{label}</FieldLabel>
-      <Input
-        className="placeholder-shown:ring-warning-foreground"
-        placeholder={placeholder}
-        type={inputType}
-        {...register(name, {
-          ...(inputType === "number" && { valueAsNumber: true }),
-        })}
-      />
+      <InputGroup className="has-[input:placeholder-shown]:ring-warning-foreground">
+        <InputGroupInput
+          placeholder={placeholder}
+          type={inputType}
+          {...register(name, {
+            ...(inputType === "number" && { valueAsNumber: true }),
+          })}
+        />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton
+            type="button"
+            variant="muted"
+            className="hover:bg-transparent"
+            onClick={handleClear}
+          >
+            <ClearIcon />
+          </InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
     </Field>
   );
 }

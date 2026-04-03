@@ -1,5 +1,5 @@
 import { useFormContext, Controller, useWatch } from "react-hook-form";
-
+import ClearIcon from "@icons/clear.svg";
 import {
   Field,
   FieldSet,
@@ -17,10 +17,17 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { useAdDetailQuery } from "@/features/ads/hooks/useAdDetailQuery";
+import { useFieldClear } from "@/pages/ad-edit/hooks/useFieldClear";
 import {
   CATEGORY_LABELS,
   type ItemEditFormValues,
 } from "@/features/ads/schema";
+import {
+  InputGroup,
+  InputGroupButton,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 
 export function MainParameters() {
   const { data: item, isLoading } = useAdDetailQuery();
@@ -29,6 +36,9 @@ export function MainParameters() {
     control,
     formState: { errors },
   } = useFormContext<ItemEditFormValues>();
+
+  const handleTitleClear = useFieldClear("title");
+  const handlePriceClear = useFieldClear("price");
 
   const category = useWatch({ control, name: "category" });
 
@@ -75,15 +85,28 @@ export function MainParameters() {
       <FieldSet className="w-[456px]">
         <FieldLegend>Название</FieldLegend>
         <Field>
-          <Input
-            className="peer aria-invalid:ring-accent aria-invalid:not-focus:ring-danger-foreground"
-            placeholder="Введите название"
-            aria-invalid={!!errors.title}
-            required
-            {...titleReg}
-          />
+          <InputGroup className="peer has-[[data-slot][aria-invalid=true]]:not(:focus-within):ring-danger-foreground has-[[data-slot][aria-invalid=true]]:focus-within:ring-accent">
+            <InputGroupInput
+              placeholder="Введите название"
+              aria-invalid={!!errors.title}
+              required
+              {...titleReg}
+            />
+
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                variant="muted"
+                className="hover:bg-transparent"
+                onClick={handleTitleClear}
+              >
+                <ClearIcon />
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+
           {!!errors.title && (
-            <FieldError className="peer-focus:hidden">
+            <FieldError className="peer-focus-within:hidden">
               {errors.title?.message}
             </FieldError>
           )}
@@ -95,16 +118,27 @@ export function MainParameters() {
       <FieldSet className="w-[456px]">
         <FieldLegend>Цена</FieldLegend>
         <Field>
-          <Input
-            className="peer aria-invalid:ring-accent aria-invalid:not-focus:ring-danger-foreground"
-            placeholder="Введите цену"
-            type="number"
-            aria-invalid={!!errors.price}
-            required
-            {...priceReg}
-          />
+          <InputGroup className="peer has-[[data-slot][aria-invalid=true]]:not(:focus-within):ring-danger-foreground has-[[data-slot][aria-invalid=true]]:focus-within:ring-accent">
+            <InputGroupInput
+              placeholder="Введите цену"
+              type="number"
+              aria-invalid={!!errors.price}
+              required
+              {...priceReg}
+            />
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                variant="muted"
+                className="hover:bg-transparent"
+                onClick={handlePriceClear}
+              >
+                <ClearIcon />
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
           {!!errors.price && (
-            <FieldError className="peer-focus:hidden">
+            <FieldError className="peer-focus-within:hidden">
               {errors.price?.message}
             </FieldError>
           )}
