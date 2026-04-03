@@ -123,8 +123,8 @@ export function MainParameters() {
 
       <FieldSet>
         <FieldLegend>Цена</FieldLegend>
-        <Field orientation="horizontal" className="gap-6">
-          <div>
+        <Field orientation="horizontal" className="gap-6 items-start">
+          <div className="flex flex-col gap-2">
             <InputGroup className="peer w-[456px] has-[[data-slot][aria-invalid=true]]:not(:focus-within):ring-danger-foreground has-[[data-slot][aria-invalid=true]]:focus-within:ring-accent">
               <InputGroupInput
                 placeholder="Введите цену"
