@@ -117,6 +117,33 @@ export const ItemEditSchema = z.discriminatedUnion("category", [
 
 export type ItemEditPayload = z.infer<typeof ItemEditSchema>;
 
+export const ItemSuggestPayloadSchema = z
+  .object({
+    title: z.string(),
+    description: z.string().optional(),
+  })
+  .and(
+    z.discriminatedUnion("category", [
+      z.object({
+        category: z.literal("auto"),
+        params: AutoItemParamsSchema.partial(),
+      }),
+      z.object({
+        category: z.literal("real_estate"),
+        params: RealEstateItemParamsSchema.partial(),
+      }),
+      z.object({
+        category: z.literal("electronics"),
+        params: ElectronicsItemParamsSchema.partial(),
+      }),
+    ]),
+  );
+
+export type ItemSuggestPayload = z.infer<typeof ItemSuggestPayloadSchema>;
+
+export const AiPriceResponseSchema = z.object({ price: z.number() });
+export const AiDescriptionResponseSchema = z.object({ description: z.string() });
+
 export type ItemEditFormValues = {
   category: ItemCategory;
   title: string;

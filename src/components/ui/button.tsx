@@ -15,7 +15,7 @@ const buttonVariants = cva(
         accent: "bg-accent text-background disabled:bg-[#D9D9D9] disabled:text-[#F3F3F3]",
         outline: "bg-background text-accent ring ring-inset ring-accent",
         warning: "bg-warning text-warning-foreground",
-        danger: "bg-danger text-foreground/85 ring ring-inset ring-[#D9D9D9]"
+        danger: "bg-danger-tertiary text-foreground/85 ring ring-inset ring-[#D9D9D9]"
       },
       size: {
         default:

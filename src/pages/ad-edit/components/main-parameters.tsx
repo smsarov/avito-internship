@@ -14,14 +14,6 @@ import {
   SelectValue,
   SelectContent,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-
-import { useAdDetailQuery } from "@/features/ads/hooks/useAdDetailQuery";
-import { useFieldClear } from "@/pages/ad-edit/hooks/useFieldClear";
-import {
-  CATEGORY_LABELS,
-  type ItemEditFormValues,
-} from "@/features/ads/schema";
 import {
   InputGroup,
   InputGroupButton,
@@ -29,18 +21,32 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
+import { AsyncPopoverButton } from "@/components/async-popover-button";
+
+import { useAdDetailQuery } from "@/features/ads/hooks/useAdDetailQuery";
+import { useFieldClear } from "../hooks/useFieldClear";
+import { useAiPriceMutation } from "../hooks/useAiPriceMutation";
+
+import {
+  CATEGORY_LABELS,
+  type ItemEditFormValues,
+} from "@/features/ads/schema";
+
 export function MainParameters() {
   const { data: item, isLoading } = useAdDetailQuery();
   const {
     register,
+    setValue,
     control,
     formState: { errors },
   } = useFormContext<ItemEditFormValues>();
 
-  const handleTitleClear = useFieldClear("title");
-  const handlePriceClear = useFieldClear("price");
+  const { mutateAsync: getAiPrice } = useAiPriceMutation();
 
   const category = useWatch({ control, name: "category" });
+
+  const handleTitleClear = useFieldClear("title");
+  const handlePriceClear = useFieldClear("price");
 
   const titleReg = register("title", { required: true, minLength: 1 });
   const priceReg = register("price", {
@@ -115,33 +121,40 @@ export function MainParameters() {
 
       <FieldSeparator />
 
-      <FieldSet className="w-[456px]">
+      <FieldSet>
         <FieldLegend>Цена</FieldLegend>
-        <Field>
-          <InputGroup className="peer has-[[data-slot][aria-invalid=true]]:not(:focus-within):ring-danger-foreground has-[[data-slot][aria-invalid=true]]:focus-within:ring-accent">
-            <InputGroupInput
-              placeholder="Введите цену"
-              type="number"
-              aria-invalid={!!errors.price}
-              required
-              {...priceReg}
-            />
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                type="button"
-                variant="muted"
-                className="hover:bg-transparent"
-                onClick={handlePriceClear}
-              >
-                <ClearIcon />
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
-          {!!errors.price && (
-            <FieldError className="peer-focus-within:hidden">
-              {errors.price?.message}
-            </FieldError>
-          )}
+        <Field orientation="horizontal" className="gap-6">
+          <div>
+            <InputGroup className="peer w-[456px] has-[[data-slot][aria-invalid=true]]:not(:focus-within):ring-danger-foreground has-[[data-slot][aria-invalid=true]]:focus-within:ring-accent">
+              <InputGroupInput
+                placeholder="Введите цену"
+                type="number"
+                aria-invalid={!!errors.price}
+                required
+                {...priceReg}
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  type="button"
+                  variant="muted"
+                  className="hover:bg-transparent"
+                  onClick={handlePriceClear}
+                >
+                  <ClearIcon />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+            {!!errors.price && (
+              <FieldError className="peer-focus-within:hidden">
+                {errors.price?.message}
+              </FieldError>
+            )}
+          </div>
+          <AsyncPopoverButton
+            label="Узнать рыночную цену"
+            onClick={getAiPrice}
+            onApply={(result) => setValue("price", Number(result))}
+          />
         </Field>
       </FieldSet>
     </>

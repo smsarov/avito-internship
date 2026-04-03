@@ -3,10 +3,13 @@ import { http } from "@/lib/axios";
 import {
   ItemsListResponseSchema,
   ItemDetailSchema,
+  AiPriceResponseSchema,
+  AiDescriptionResponseSchema,
   type ItemsListParams,
   type ItemsListResponse,
   type ItemDetail,
   type ItemEditPayload,
+  type ItemSuggestPayload,
 } from "./schema";
 
 const queryKeys = {
@@ -46,9 +49,35 @@ async function updateItem(id: string, payload: ItemEditPayload) {
   return response.data.success;
 }
 
+async function getAiPrice(payload: ItemSuggestPayload): Promise<number> {
+  console.log("getAiPrice", payload);
+  const { data } = await http.post("/items/suggestions/price", payload);
+  const result = AiPriceResponseSchema.safeParse(data);
+
+  if (!result.success) {
+    throw result.error;
+  }
+
+  return result.data.price;
+}
+
+async function getAiDescription(payload: ItemSuggestPayload): Promise<string> {
+  console.log("getAiDescription", payload);
+  const { data } = await http.post("/items/suggestions/description", payload);
+  const result = AiDescriptionResponseSchema.safeParse(data);
+
+  if (!result.success) {
+    throw result.error;
+  }
+
+  return result.data.description;
+}
+
 export const adsService = {
   queryKeys,
   fetchItems,
   fetchItemById,
   updateItem,
+  getAiPrice,
+  getAiDescription,
 };

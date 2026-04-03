@@ -1,3 +1,4 @@
+import { Markdown } from "@/components/markdown";
 import { Typography } from "@/components/ui/typography";
 
 type DescriptionProps = {
@@ -15,9 +16,13 @@ export function Description({ description, isLoading }: DescriptionProps) {
       <Typography.H2 className="leading-[22px] font-medium">
         Описание
       </Typography.H2>
-      <Typography.Small className="text-base leading-[140%] font-normal">
-        {isEmpty ? "Отсутствует" : description}
-      </Typography.Small>
+      {isEmpty ? (
+        <Typography.Small className="text-base leading-[140%] font-normal">
+          Отсутствует
+        </Typography.Small>
+      ) : (
+        <Markdown value={description ?? ""} readOnly variant="plain" />
+      )}
     </div>
   );
 }
