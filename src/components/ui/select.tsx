@@ -52,7 +52,7 @@ function SelectTrigger({
       className={cn(
         "flex items-center justify-between gap-1.5 rounded-lg text-sm whitespace-nowrap transition-colors outline-0 select-none ring-1 ring-inset ring-control-border focus-visible:ring-accent focus-visible:outline-2 focus-visible:outline-focus-outline-accent disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-foreground/25 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         variant === "default" &&
-          "w-fit bg-transparent py-2 pr-2 pl-3 dark:bg-input/30 dark:hover:bg-input/50 data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)]",
+          "w-fit bg-transparent py-2 pr-2 pl-3 data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)]",
         variant === "toolbar" &&
           "h-full min-h-0 w-full min-w-0 border-0 bg-background py-0 pl-2 pr-1.5 text-sm leading-none shadow-none focus-visible:ring-0 dark:bg-background dark:hover:bg-background",
         className

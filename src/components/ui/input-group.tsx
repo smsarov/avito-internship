@@ -18,6 +18,7 @@ function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
         "has-[[data-slot=input-group-control]:focus-visible]:ring-accent has-[[data-slot=input-group-control]:focus-visible]:outline-2 has-[[data-slot=input-group-control]:focus-visible]:outline-focus-outline-accent",
         "has-[[data-slot][aria-invalid=true]]:ring-danger-foreground has-[[data-slot][aria-invalid=true]]:outline-none",
         "has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto",
+        "overflow-hidden",
         className
       )}
       {...props}
