@@ -103,15 +103,15 @@ const ItemEditBaseSchema = z.object({
 export const ItemEditSchema = z.discriminatedUnion("category", [
   ItemEditBaseSchema.extend({
     category: z.literal("auto"),
-    params: AutoItemParamsSchema,
+    params: AutoItemParamsSchema.partial(),
   }),
   ItemEditBaseSchema.extend({
     category: z.literal("real_estate"),
-    params: RealEstateItemParamsSchema,
+    params: RealEstateItemParamsSchema.partial(),
   }),
   ItemEditBaseSchema.extend({
     category: z.literal("electronics"),
-    params: ElectronicsItemParamsSchema,
+    params: ElectronicsItemParamsSchema.partial(),
   }),
 ]);
 

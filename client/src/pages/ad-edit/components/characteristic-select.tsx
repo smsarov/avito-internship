@@ -44,6 +44,7 @@ export function CharacteristicSelect({
       <Controller
         name={name}
         control={control}
+        shouldUnregister
         render={({ field }) => {
           const selectValue =
             field.value != null &&

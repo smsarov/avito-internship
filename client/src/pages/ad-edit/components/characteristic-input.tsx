@@ -37,6 +37,7 @@ export function CharacteristicInput({
           placeholder={placeholder}
           type={inputType}
           {...register(name, {
+            shouldUnregister: true,
             ...(inputType === "number" && { valueAsNumber: true }),
           })}
         />

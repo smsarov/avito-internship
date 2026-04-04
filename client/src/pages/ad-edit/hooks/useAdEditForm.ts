@@ -25,15 +25,11 @@ export function useAdEditForm() {
     const sub = methods.watch((_, { name }) => {
       if (name !== "category" || !valuesFromServer) return;
 
-      const category = methods.getValues("category");
-      const params = category === valuesFromServer.category
-        ? valuesFromServer.params
-        : {};
-
-      methods.setValue("params", params, {
+      methods.setValue("params", {}, {
         shouldValidate: true,
         shouldDirty: true,
       });
+      methods.clearErrors("params");
     });
     return () => sub.unsubscribe();
   }, [methods, valuesFromServer]);
