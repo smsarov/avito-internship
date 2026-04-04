@@ -7,14 +7,14 @@ const forms = {
   one: "объявление",
   few: "объявления",
   many: "объявлений",
-}
+};
 
 export function Header() {
   const { data: { total = -1 } = {} } = useAdsListQuery();
 
   return (
-    <div className="py-3 px-2">
-      <Typography.H2 className="font-medium leading-[28px]">
+    <header className="py-3 px-2">
+      <Typography.H2 id="ads-list-title" className="font-medium leading-[28px]">
         Мои объявления
       </Typography.H2>
       <Typography.H3 className="text-muted-foreground font-light leading-[22px] h-[22px]">
@@ -23,6 +23,6 @@ export function Header() {
           <span className="inline-block h-[22px] w-32 animate-pulse rounded bg-muted" />
         )}
       </Typography.H3>
-    </div>
+    </header>
   );
 }

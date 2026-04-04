@@ -1,19 +1,25 @@
 import { Separator } from "@/components/ui/separator";
 import { Typography } from "@/components/ui/typography";
 
+import { formatDocumentTitle } from "@/constants/page-titles";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+
 import { Header } from "./components/header";
 import { Content } from "./components/content";
 
 import { useAdDetailQuery } from "./hooks/useAdDetailQuery";
 
 export function AdDetailsPage() {
-  const { data: item, isError, error } = useAdDetailQuery();
+  const { data: item, isError } = useAdDetailQuery();
 
-  if (error) console.log(error);
+  useDocumentTitle(formatDocumentTitle(item?.title ?? "Объявление"));
 
   if (isError) {
     return (
-      <div className="w-full rounded-lg bg-danger/10 px-4 py-3">
+      <div
+        role="alert"
+        className="w-full rounded-lg bg-danger/10 px-4 py-3"
+      >
         <Typography.P className="text-danger-foreground">
           Не удалось загрузить объявление. Попробуйте обновить страницу.
         </Typography.P>
@@ -22,10 +28,10 @@ export function AdDetailsPage() {
   }
 
   return (
-    <div className="w-full flex flex-col gap-8">
+    <article className="w-full flex flex-col gap-8">
       <Header item={item} />
       <Separator className="bg-separator-line" />
       <Content item={item} />
-    </div>
+    </article>
   );
 }

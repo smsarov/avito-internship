@@ -12,18 +12,24 @@ export function Description({ description, isLoading }: DescriptionProps) {
   const isEmpty = !description;
 
   return (
-    <div className="flex flex-col gap-4 w-[480px] md:w-full">
-      <Typography.H2 className="leading-[22px] font-medium">
+    <section
+      className="flex flex-col gap-4 w-[480px] md:w-full"
+      aria-labelledby="ad-description-heading"
+    >
+      <Typography.H2
+        id="ad-description-heading"
+        className="leading-[22px] font-medium"
+      >
         Описание
       </Typography.H2>
       {isEmpty ? (
-        <Typography.Small className="text-base leading-[140%] font-normal">
+        <Typography.P className="text-base leading-[140%] font-normal">
           Отсутствует
-        </Typography.Small>
+        </Typography.P>
       ) : (
         <Markdown value={description ?? ""} readOnly variant="plain" />
       )}
-    </div>
+    </section>
   );
 }
 

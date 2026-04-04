@@ -1,4 +1,7 @@
+import { Fragment } from "react";
+
 import { Typography } from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
 
 import { PARAM_LABELS, formatParamValue } from "../constants";
 import { isFieldFilled } from "../utils/is-field-filled";
@@ -22,23 +25,33 @@ export function Characteristics({ item }: CharacteristicsProps) {
   if (filled.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-4">
-      <Typography.H2 className="leading-[28px] font-normal">
+    <section
+      className="flex flex-col gap-4"
+      aria-labelledby="ad-characteristics-heading"
+    >
+      <Typography.H2
+        id="ad-characteristics-heading"
+        className="leading-[28px] font-normal"
+      >
         Характеристики
       </Typography.H2>
-      <div className="grid grid-cols-[148px_auto] gap-x-3 gap-y-2 w-fit">
+      <dl className="grid grid-cols-[148px_auto] gap-x-3 gap-y-2 w-fit">
         {filled.map(([key, label]) => (
-          <div key={key} className="contents">
-            <Typography.P className="text-base leading-[140%] opacity-45 font-semibold">
+          <Fragment key={key}>
+            <dt
+              className={cn(
+                "text-base leading-[140%] font-semibold opacity-45",
+              )}
+            >
               {label}
-            </Typography.P>
-            <Typography.P className="text-base leading-[140%] font-normal">
+            </dt>
+            <dd className="m-0 text-base leading-[140%] font-normal">
               {formatParamValue(key, params[key])}
-            </Typography.P>
-          </div>
+            </dd>
+          </Fragment>
         ))}
-      </div>
-    </div>
+      </dl>
+    </section>
   );
 }
 

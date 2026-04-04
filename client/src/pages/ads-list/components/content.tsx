@@ -15,43 +15,45 @@ export function Content() {
   const itemsPerPage = getItemsPerPage(view);
   const variant = isGrid ? "vertical" : "horizontal";
 
+  const listClassName = isGrid
+    ? "grid justify-between grid-cols-[repeat(auto-fill,200px)] w-full gap-3 list-none p-0 m-0"
+    : "flex flex-col w-full gap-y-3 list-none p-0 m-0";
+
   return (
     <>
       {isError && (
-        <div className="w-full rounded-lg bg-danger/10 px-4 py-3">
+        <div role="alert" className="w-full rounded-lg bg-danger/10 px-4 py-3">
           <Typography.P className="text-danger-foreground">
             Не удалось загрузить объявления. Попробуйте обновить страницу.
           </Typography.P>
         </div>
       )}
 
-      <div
-        className={
-          isGrid
-            ? "grid justify-between grid-cols-[repeat(auto-fill,200px)] w-full gap-3"
-            : "flex flex-col w-full gap-y-3"
-        }
-      >
+      <ul className={listClassName}>
         {isLoading &&
           Array.from({ length: itemsPerPage }).map((_, i) => (
-            <CardSkeleton key={i} variant={variant} />
+            <li key={i} className={isGrid ? undefined : "w-full"}>
+              <CardSkeleton variant={variant} />
+            </li>
           ))}
 
         {!isLoading &&
-          data?.items
-            .slice(0, itemsPerPage)
-            .map((item) => (
-              <Card key={item.id} variant={variant} item={item} />
-            ))}
+          data?.items.slice(0, itemsPerPage).map((item) => (
+            <li key={item.id} className={isGrid ? undefined : "w-full"}>
+              <Card variant={variant} item={item} />
+            </li>
+          ))}
 
         {!isLoading && !isError && data?.items.length === 0 && (
-          <div className="w-full py-10 text-center">
-            <Typography.P className="text-muted-foreground">
-              Объявления не найдены
-            </Typography.P>
-          </div>
+          <li className="w-full list-none text-center">
+            <div role="status">
+              <Typography.P className="text-muted-foreground">
+                Объявления не найдены
+              </Typography.P>
+            </div>
+          </li>
         )}
-      </div>
+      </ul>
     </>
   );
 }

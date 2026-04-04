@@ -36,14 +36,19 @@ export function Notification({
   size = "default",
   showIcon = false,
   children,
+  role,
   ...props
 }: NotificationProps) {
   const Icon = variant ? icons[variant as keyof typeof icons] : null;
+
+  const defaultRole =
+    variant === "warning" || variant === "danger" ? "alert" : undefined;
 
   return (
     <div
       data-size={size}
       data-variant={variant}
+      role={role ?? defaultRole}
       className={cn(notificationVariants({ variant, size }), className)}
       {...props}
     >

@@ -3,42 +3,47 @@ import type { PropsWithChildren } from "react";
 
 interface TypographyProps extends PropsWithChildren {
   className?: string;
+  id?: string;
 }
 
-function TypographyH1({ children, className }: TypographyProps) {
+function TypographyH1({ children, className, id }: TypographyProps) {
   return (
-    <h1 className={cn("text-3xl font-bold", className)}>{children}</h1>
+    <h1 id={id} className={cn("text-3xl font-bold", className)}>
+      {children}
+    </h1>
   );
 }
 
-function TypographyH2({ children, className }: TypographyProps) {
+function TypographyH2({ children, className, id }: TypographyProps) {
   return (
-    <h2 className={cn("text-2xl font-semibold", className)}>{children}</h2>
+    <h2 id={id} className={cn("text-2xl font-semibold", className)}>
+      {children}
+    </h2>
   );
 }
 
-function TypographyH3({ children, className }: TypographyProps) {
+function TypographyH3({ children, className, id }: TypographyProps) {
   return (
-    <h3 className={cn("text-lg font-semibold", className)}>{children}</h3>
+    <h3 id={id} className={cn("text-lg font-semibold", className)}>
+      {children}
+    </h3>
   );
 }
 
-function TypographyH4({ children, className }: TypographyProps) {
+function TypographyH4({ children, className, id }: TypographyProps) {
   return (
-    <h4 className={cn("text-base font-medium", className)}>{children}</h4>
+    <h4 id={id} className={cn("text-base font-medium", className)}>
+      {children}
+    </h4>
   );
 }
 
 function TypographyP({ children, className }: TypographyProps) {
-  return (
-    <p className={cn("text-sm", className)}>{children}</p>
-  );
+  return <p className={cn("text-sm", className)}>{children}</p>;
 }
 
 function TypographySmall({ children, className }: TypographyProps) {
-  return (
-    <span className={cn("text-xs", className)}>{children}</span>
-  );
+  return <span className={cn("text-xs", className)}>{children}</span>;
 }
 
 export const Typography = {
