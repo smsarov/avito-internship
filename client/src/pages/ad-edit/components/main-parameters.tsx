@@ -37,6 +37,7 @@ export function MainParameters() {
   const {
     register,
     setValue,
+    clearErrors,
     control,
     formState: { errors },
   } = useFormContext<ItemEditFormValues>();
@@ -48,12 +49,8 @@ export function MainParameters() {
   const handleTitleClear = useFieldClear("title");
   const handlePriceClear = useFieldClear("price");
 
-  const titleReg = register("title", { required: true, minLength: 1 });
-  const priceReg = register("price", {
-    required: true,
-    valueAsNumber: true,
-    min: 0,
-  });
+  const titleReg = register("title");
+  const priceReg = register("price", { valueAsNumber: true });
 
   if (isLoading || (item && category === undefined)) {
     return <MainParametersSkeleton />;
@@ -69,7 +66,17 @@ export function MainParameters() {
           render={({ field }) => (
             <Select
               value={field.value != null ? String(field.value) : undefined}
-              onValueChange={field.onChange}
+              onValueChange={(next) => {
+                const changed = next !== field.value;
+                field.onChange(next);
+                if (changed) {
+                  setValue("params", {}, {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
+                  clearErrors("params");
+                }
+              }}
             >
               <SelectTrigger className="w-3xs">
                 <SelectValue placeholder="Выберите категорию" />

@@ -5,8 +5,10 @@ import type {
   ElectronicsItemParams,
 } from "./schema";
 
+export const MAX_DESCRIPTION_LENGTH = 1000;
+
 const AUTO_PARAM_LABELS: Record<keyof AutoItemParams, string> = {
-  brand: "Бренд",
+  brand: "Марка",
   model: "Модель",
   yearOfManufacture: "Год выпуска",
   transmission: "Коробка передач",

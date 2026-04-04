@@ -4,6 +4,7 @@ import { Controller, useFormContext, type FieldPath } from "react-hook-form";
 import {
   Field,
   FieldLabel,
+  FieldError,
 } from "@/components/ui/field";
 import {
   Select,
@@ -44,8 +45,7 @@ export function CharacteristicSelect({
       <Controller
         name={name}
         control={control}
-        shouldUnregister
-        render={({ field }) => {
+        render={({ field, fieldState }) => {
           const selectValue =
             field.value != null &&
             field.value !== "" &&
@@ -54,22 +54,27 @@ export function CharacteristicSelect({
               : undefined;
 
           return (
-            <Select
-              key={`${category}-${fieldKey}`}
-              value={selectValue}
-              onValueChange={field.onChange}
-            >
-              <SelectTrigger className="data-placeholder:not-focus:ring-warning-foreground">
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-              <SelectContent>
-                {options.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <>
+              <Select
+                key={`${category}-${fieldKey}`}
+                value={selectValue}
+                onValueChange={field.onChange}
+              >
+                <SelectTrigger className="data-placeholder:not-focus:ring-warning-foreground">
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  {options.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {fieldState.error?.message != null && (
+                <FieldError>{String(fieldState.error.message)}</FieldError>
+              )}
+            </>
           );
         }}
       />

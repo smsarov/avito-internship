@@ -1,15 +1,13 @@
 import ClearIcon from "@icons/clear.svg";
-import { useFormContext, type FieldPath } from "react-hook-form";
+import { Controller, useFormContext, type FieldPath } from "react-hook-form";
 
-import { Field, FieldLabel } from "@/components/ui/field";
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupInput,
   InputGroupButton,
   InputGroupAddon,
 } from "@/components/ui/input-group";
-
-import { useFieldClear } from "@/pages/ad-edit/hooks/useFieldClear";
 
 import type { ItemEditFormValues } from "@/features/ads/schema";
 
@@ -26,32 +24,54 @@ export function CharacteristicInput({
   placeholder,
   inputType,
 }: CharacteristicInputProps) {
-  const { register } = useFormContext<ItemEditFormValues>();
-  const handleClear = useFieldClear(name);
+  const { control } = useFormContext<ItemEditFormValues>();
 
   return (
-    <Field>
-      <FieldLabel>{label}</FieldLabel>
-      <InputGroup className="has-[input:placeholder-shown]:ring-warning-foreground">
-        <InputGroupInput
-          placeholder={placeholder}
-          type={inputType}
-          {...register(name, {
-            shouldUnregister: true,
-            ...(inputType === "number" && { valueAsNumber: true }),
-          })}
-        />
-        <InputGroupAddon align="inline-end">
-          <InputGroupButton
-            type="button"
-            variant="muted"
-            className="hover:bg-transparent"
-            onClick={handleClear}
-          >
-            <ClearIcon />
-          </InputGroupButton>
-        </InputGroupAddon>
-      </InputGroup>
-    </Field>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState }) => (
+        <Field>
+          <FieldLabel>{label}</FieldLabel>
+          <InputGroup className="has-[input:placeholder-shown]:ring-warning-foreground">
+            <InputGroupInput
+              placeholder={placeholder}
+              type={inputType}
+              value={
+                field.value === undefined || field.value === null
+                  ? ""
+                  : inputType === "number"
+                    ? String(field.value)
+                    : String(field.value)
+              }
+              onBlur={field.onBlur}
+              onChange={(e) => {
+                if (inputType === "number") {
+                  const raw = e.target.value;
+                  field.onChange(raw === "" ? undefined : Number(raw));
+                } else {
+                  field.onChange(e.target.value);
+                }
+              }}
+            />
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                variant="muted"
+                className="hover:bg-transparent"
+                onClick={() =>
+                  field.onChange(inputType === "number" ? undefined : "")
+                }
+              >
+                <ClearIcon />
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+          {fieldState.error?.message != null && (
+            <FieldError>{String(fieldState.error.message)}</FieldError>
+          )}
+        </Field>
+      )}
+    />
   );
 }

@@ -1,3 +1,5 @@
+import { PARAM_LABELS, VALUE_LABELS } from "@/features/ads/constants";
+
 import type {
   ItemCategory,
   AutoItemParams,
@@ -40,41 +42,41 @@ export const CHARACTERISTIC_FIELDS: CharacteristicFieldsConfig = {
   auto: [
     {
       key: "brand",
-      label: "Марка",
+      label: PARAM_LABELS.auto.brand,
       placeholder: "Введите марку",
       inputType: "text",
     },
     {
       key: "model",
-      label: "Модель",
+      label: PARAM_LABELS.auto.model,
       placeholder: "Введите модель",
       inputType: "text",
     },
     {
       key: "yearOfManufacture",
-      label: "Год выпуска",
+      label: PARAM_LABELS.auto.yearOfManufacture,
       placeholder: "Введите год выпуска",
       inputType: "number",
     },
     {
       key: "transmission",
-      label: "Коробка передач",
+      label: PARAM_LABELS.auto.transmission,
       placeholder: "Выберите коробку передач",
       inputType: "select",
       options: [
-        { value: "automatic", label: "Автомат" },
-        { value: "manual", label: "Механика" },
+        { value: "automatic", label: VALUE_LABELS.transmission.automatic },
+        { value: "manual", label: VALUE_LABELS.transmission.manual },
       ],
     },
     {
       key: "mileage",
-      label: "Пробег",
+      label: PARAM_LABELS.auto.mileage,
       placeholder: "Введите пробег",
       inputType: "number",
     },
     {
       key: "enginePower",
-      label: "Мощность двигателя",
+      label: PARAM_LABELS.auto.enginePower,
       placeholder: "Введите мощность двигателя",
       inputType: "number",
     },
@@ -82,30 +84,30 @@ export const CHARACTERISTIC_FIELDS: CharacteristicFieldsConfig = {
   real_estate: [
     {
       key: "type",
-      label: "Тип недвижимости",
+      label: PARAM_LABELS.real_estate.type,
       placeholder: "Выберите тип недвижимости",
       inputType: "select",
       options: [
-        { value: "flat", label: "Квартира" },
-        { value: "house", label: "Дом" },
-        { value: "room", label: "Комната" },
+        { value: "flat", label: VALUE_LABELS.type.flat },
+        { value: "house", label: VALUE_LABELS.type.house },
+        { value: "room", label: VALUE_LABELS.type.room },
       ],
     },
     {
       key: "address",
-      label: "Адрес",
+      label: PARAM_LABELS.real_estate.address,
       placeholder: "Введите адрес",
       inputType: "text",
     },
     {
       key: "area",
-      label: "Площадь",
+      label: PARAM_LABELS.real_estate.area,
       placeholder: "Введите площадь",
       inputType: "number",
     },
     {
       key: "floor",
-      label: "Этаж",
+      label: PARAM_LABELS.real_estate.floor,
       placeholder: "Введите этаж",
       inputType: "number",
     },
@@ -113,42 +115,46 @@ export const CHARACTERISTIC_FIELDS: CharacteristicFieldsConfig = {
   electronics: [
     {
       key: "type",
-      label: "Тип",
+      label: PARAM_LABELS.electronics.type,
       placeholder: "Выберите тип",
       inputType: "select",
       options: [
-        { value: "phone", label: "Телефон" },
-        { value: "laptop", label: "Ноутбук" },
-        { value: "misc", label: "Прочее" },
+        { value: "phone", label: VALUE_LABELS.type.phone },
+        { value: "laptop", label: VALUE_LABELS.type.laptop },
+        { value: "misc", label: VALUE_LABELS.type.misc },
       ],
     },
     {
       key: "brand",
-      label: "Марка",
-      placeholder: "Введите марку",
+      label: PARAM_LABELS.electronics.brand,
+      placeholder: "Введите бренд",
       inputType: "text",
     },
     {
       key: "model",
-      label: "Модель",
+      label: PARAM_LABELS.electronics.model,
       placeholder: "Введите модель",
       inputType: "text",
     },
     {
       key: "condition",
-      label: "Состояние",
+      label: PARAM_LABELS.electronics.condition,
       placeholder: "Выберите состояние",
       inputType: "select",
       options: [
-        { value: "new", label: "Новое" },
-        { value: "used", label: "Б/У" },
+        { value: "new", label: VALUE_LABELS.condition.new },
+        { value: "used", label: VALUE_LABELS.condition.used },
       ],
     },
     {
       key: "color",
-      label: "Цвет",
+      label: PARAM_LABELS.electronics.color,
       placeholder: "Введите цвет",
       inputType: "text",
     },
   ],
 };
+
+export function paramKeysForCategory(category: ItemCategory): string[] {
+  return CHARACTERISTIC_FIELDS[category].map((f) => f.key);
+}

@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+import { MAX_DESCRIPTION_LENGTH } from "./constants";
+import { en, omitEmpty, pint, pnum, str } from "./utils/item-edit-zod-helpers";
+
 export const ItemCategorySchema = z.enum(["auto", "real_estate", "electronics"]);
 
 export type ItemCategory = z.infer<typeof ItemCategorySchema>;
@@ -92,26 +95,56 @@ export type ItemsListParams = {
   sortDirection?: "asc" | "desc";
 };
 
-export const MAX_DESCRIPTION_LENGTH = 1000;
+export { MAX_DESCRIPTION_LENGTH };
+
+const AutoParamsEditSchema = z.object({
+  brand: str(),
+  model: str(),
+  yearOfManufacture: pint(),
+  transmission: en(["automatic", "manual"]),
+  mileage: pnum(),
+  enginePower: pint(),
+});
+
+const RealEstateParamsEditSchema = z.object({
+  type: en(["flat", "house", "room"]),
+  address: str(),
+  area: pnum(),
+  floor: pint(),
+});
+
+const ElectronicsParamsEditSchema = z.object({
+  type: en(["phone", "laptop", "misc"]),
+  brand: str(),
+  model: str(),
+  condition: en(["new", "used"]),
+  color: str(),
+});
 
 const ItemEditBaseSchema = z.object({
-  title: z.string().min(1, "Название должно быть заполнено"),
-  price: z.coerce.number("Пожалуйста, введите число").min(0, "Цена должна быть неотрицательной").nullable(),
-  description: z.string().max(MAX_DESCRIPTION_LENGTH, `Описание не должно превышать ${MAX_DESCRIPTION_LENGTH} символов`).optional(),
+  title: z.string().trim().min(1, "Название должно быть заполнено"),
+  price: z.preprocess(
+    omitEmpty,
+    z.number("Укажите цену").min(0, "Цена должна быть неотрицательной"),
+  ),
+  description: z
+    .string()
+    .max(MAX_DESCRIPTION_LENGTH, `Описание не должно превышать ${MAX_DESCRIPTION_LENGTH} символов`)
+    .optional(),
 });
 
 export const ItemEditSchema = z.discriminatedUnion("category", [
   ItemEditBaseSchema.extend({
     category: z.literal("auto"),
-    params: AutoItemParamsSchema.partial(),
+    params: AutoParamsEditSchema,
   }),
   ItemEditBaseSchema.extend({
     category: z.literal("real_estate"),
-    params: RealEstateItemParamsSchema.partial(),
+    params: RealEstateParamsEditSchema,
   }),
   ItemEditBaseSchema.extend({
     category: z.literal("electronics"),
-    params: ElectronicsItemParamsSchema.partial(),
+    params: ElectronicsParamsEditSchema,
   }),
 ]);
 

@@ -4,12 +4,12 @@ import {
   type ItemSuggestPayload,
 } from "@/features/ads/schema";
 
-import { stripEmptyParams } from "./strip-empty-params";
+import { stripEmptyParamsForCategory } from "./strip-empty-params";
 
 export function itemEditFormValuesToSuggestPayload(
   values: ItemEditFormValues,
 ): ItemSuggestPayload {
-  const params = stripEmptyParams(values.params);
+  const params = stripEmptyParamsForCategory(values.category, values.params);
   const base = {
     title: values.title,
     ...(values.description?.trim() ? { description: values.description } : {}),

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -16,23 +16,12 @@ export function useAdEditForm() {
   );
 
   const methods = useForm<ItemEditFormValues>({
-    resolver: zodResolver(ItemEditSchema) as Resolver<ItemEditFormValues>,
+    resolver: zodResolver(ItemEditSchema, undefined, {
+      raw: true,
+    }) as Resolver<ItemEditFormValues>,
     mode: "onChange",
     values: valuesFromServer,
   });
-
-  useEffect(() => {
-    const sub = methods.watch((_, { name }) => {
-      if (name !== "category" || !valuesFromServer) return;
-
-      methods.setValue("params", {}, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-      methods.clearErrors("params");
-    });
-    return () => sub.unsubscribe();
-  }, [methods, valuesFromServer]);
 
   return { methods, isLoading, isError };
 }

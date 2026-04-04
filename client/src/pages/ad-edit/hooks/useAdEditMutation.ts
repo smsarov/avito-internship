@@ -11,7 +11,7 @@ import {
   type ItemEditPayload,
 } from "@/features/ads/schema";
 
-import { stripEmptyParams } from "../utils/strip-empty-params";
+import { stripEmptyParamsForCategory } from "../utils/strip-empty-params";
 import { routes } from "@/constants/routes";
 
 
@@ -24,7 +24,7 @@ export function useAdEditMutation() {
     mutationFn: (formValues: ItemEditFormValues) => {
       const payload: ItemEditPayload = {
         ...formValues,
-        params: stripEmptyParams(formValues.params),
+        params: stripEmptyParamsForCategory(formValues.category, formValues.params),
       } as ItemEditPayload;
       return adsService.updateItem(id!, payload);
     },
@@ -38,7 +38,10 @@ export function useAdEditMutation() {
           title: formValues.title,
           description: formValues.description,
           price: formValues.price,
-          params: stripEmptyParams(formValues.params),
+          params: stripEmptyParamsForCategory(
+            formValues.category,
+            formValues.params,
+          ),
         } as ItemDetail);
       }
 
