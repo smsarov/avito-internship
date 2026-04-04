@@ -18,8 +18,8 @@ export function Content() {
   return (
     <>
       {isError && (
-        <div className="w-full rounded-lg bg-destructive/10 px-4 py-3">
-          <Typography.P className="text-destructive">
+        <div className="w-full rounded-lg bg-danger/10 px-4 py-3">
+          <Typography.P className="text-danger-foreground">
             Не удалось загрузить объявления. Попробуйте обновить страницу.
           </Typography.P>
         </div>
