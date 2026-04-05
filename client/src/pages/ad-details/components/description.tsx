@@ -13,7 +13,7 @@ export function Description({ description, isLoading }: DescriptionProps) {
 
   return (
     <section
-      className="flex flex-col gap-4 w-[480px] md:w-full"
+      className="flex min-w-0 w-full max-w-[480px] flex-col gap-4 md:max-w-none"
       aria-labelledby="ad-description-heading"
     >
       <Typography.H2
@@ -35,7 +35,7 @@ export function Description({ description, isLoading }: DescriptionProps) {
 
 function Skeleton() {
   return (
-    <div className="flex flex-col gap-4 w-[480px] md:w-full animate-pulse">
+    <div className="flex min-w-0 w-full max-w-[480px] flex-col gap-4 animate-pulse md:max-w-none">
       <div className="h-6 w-28 rounded-lg bg-muted" />
       <div className="flex flex-col gap-2">
         <div className="h-4 w-full rounded bg-muted" />

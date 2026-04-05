@@ -13,22 +13,22 @@ export function Content({ item }: ContentProps) {
   const isLoading = !item;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,480px)_minmax(0,512px)] gap-8 w-fit">
+    <div className="grid w-full min-w-0 grid-cols-1 md:grid-cols-[minmax(0,480px)_minmax(0,512px)] gap-8">
       {isLoading ? (
-        <figure className="m-0 w-[480px]">
+        <figure className="m-0 w-full max-w-[480px] min-w-0">
           <div className="h-[360px] w-full rounded-lg bg-muted animate-pulse" />
         </figure>
       ) : (
-        <figure className="m-0 w-[480px]">
+        <figure className="m-0 w-full max-w-[480px] min-w-0">
           <img
             src={defaultImageSrc}
             alt={item.title}
-            className="h-[360px] w-[480px] object-contain object-top"
+            className="h-[360px] w-full max-w-[480px] object-contain object-top"
           />
         </figure>
       )}
       <section
-        className="flex flex-col gap-8"
+        className="flex min-w-0 flex-col gap-8"
         aria-label="Детали объявления"
       >
         {!isLoading && item && <RevisionNotice item={item} />}

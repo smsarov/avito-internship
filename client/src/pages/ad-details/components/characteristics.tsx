@@ -26,7 +26,7 @@ export function Characteristics({ item }: CharacteristicsProps) {
 
   return (
     <section
-      className="flex flex-col gap-4"
+      className="flex min-w-0 w-full flex-col gap-4"
       aria-labelledby="ad-characteristics-heading"
     >
       <Typography.H2
@@ -35,17 +35,17 @@ export function Characteristics({ item }: CharacteristicsProps) {
       >
         Характеристики
       </Typography.H2>
-      <dl className="grid grid-cols-[148px_auto] gap-x-3 gap-y-2 w-fit">
+      <dl className="grid w-full min-w-0 grid-cols-[minmax(0,148px)_minmax(0,1fr)] gap-x-3 gap-y-2">
         {filled.map(([key, label]) => (
           <Fragment key={key}>
             <dt
               className={cn(
-                "text-base leading-[140%] font-semibold opacity-45",
+                "min-w-0 text-base leading-[140%] font-semibold opacity-45",
               )}
             >
               {label}
             </dt>
-            <dd className="m-0 text-base leading-[140%] font-normal">
+            <dd className="m-0 min-w-0 wrap-break-word text-base leading-[140%] font-normal">
               {formatParamValue(key, params[key])}
             </dd>
           </Fragment>
@@ -59,7 +59,7 @@ function Skeleton() {
   return (
     <div className="flex flex-col gap-4 animate-pulse">
       <div className="h-7 w-40 rounded-lg bg-muted" />
-      <div className="grid grid-cols-[148px_auto] gap-x-3 gap-y-2 w-fit">
+      <div className="grid w-full min-w-0 grid-cols-[minmax(0,148px)_minmax(0,1fr)] gap-x-3 gap-y-2">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="contents">
             <div className="h-5 w-24 rounded bg-muted" />
