@@ -1,5 +1,6 @@
 services:
   server:
+    restart: unless-stopped
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -10,6 +11,7 @@ services:
       GIGACHAT_CREDENTIALS: ${GIGACHAT_CREDENTIALS:-}
 
   client:
+    restart: unless-stopped
     build:
       context: ./client
       dockerfile: Dockerfile
