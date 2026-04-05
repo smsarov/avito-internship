@@ -6,9 +6,12 @@ import { Button } from "@/components/ui/button";
 import { routes } from "@/constants/routes";
 import type { ItemEditFormValues } from "@/features/ads/schema";
 
+import { useAdEditDraft } from "../hooks/useAdEditDraft";
+
 export function Buttons() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { clearDraft } = useAdEditDraft(undefined);
 
   const { control } = useFormContext<ItemEditFormValues>();
   const { isValid, isSubmitting } = useFormState({ control });
@@ -21,7 +24,10 @@ export function Buttons() {
       <Button
         type="button"
         variant="muted"
-        onClick={() => navigate(routes.adDetails(id!))}
+        onClick={() => {
+          clearDraft();
+          navigate(routes.adDetails(id!));
+        }}
       >
         Отменить
       </Button>

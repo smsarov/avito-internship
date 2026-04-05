@@ -14,11 +14,13 @@ import {
 import { stripEmptyParamsForCategory } from "../utils/strip-empty-params";
 import { routes } from "@/constants/routes";
 
+import { useAdEditDraft } from "./useAdEditDraft";
 
 export function useAdEditMutation() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { clearDraft } = useAdEditDraft(undefined);
 
   return useMutation({
     mutationFn: (formValues: ItemEditFormValues) => {
@@ -29,6 +31,7 @@ export function useAdEditMutation() {
       return adsService.updateItem(id!, payload);
     },
     onSuccess: (_, formValues) => {
+      clearDraft();
       const queryKey = queryKeys.detail(id!);
       const cached = queryClient.getQueryData<ItemDetail>(queryKey);
 
