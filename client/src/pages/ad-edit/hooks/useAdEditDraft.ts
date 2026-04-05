@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
@@ -27,28 +27,18 @@ export function useAdEditDraft(item: ItemDetail | undefined) {
 
   const key = id ? draftKey(id) : null;
 
-  useEffect(() => {
-    if (!key || !item) return;
-    const draft = storage.read<AdEditDraftSnapshot>(key);
-    if (!draft?.values) return;
-    const staleOrInvalid =
-      serverIsNewer(item, draft) || !ItemEditSchema.safeParse(draft.values).success;
-    if (staleOrInvalid) {
-      storage.clear(key);
-      setStorageRevision((n) => n + 1);
-    }
-  }, [key, item, storage]);
-
   const formValues = useMemo(() => {
-    if (!item) return undefined;
+    if (!item || !Number.isFinite(storageRevision)) return;
     if (!key) return itemToFormValues(item);
     const draft = storage.read<AdEditDraftSnapshot>(key);
     if (!draft?.values) return itemToFormValues(item);
     if (serverIsNewer(item, draft)) {
+      storage.clear(key);
       return itemToFormValues(item);
     }
     const parsed = ItemEditSchema.safeParse(draft.values);
     if (!parsed.success) {
+      storage.clear(key);
       return itemToFormValues(item);
     }
     return parsed.data as ItemEditFormValues;

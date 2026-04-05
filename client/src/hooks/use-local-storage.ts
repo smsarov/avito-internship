@@ -16,13 +16,17 @@ export function useLocalStorage() {
       write<T>(key: string, value: T): void {
         try {
           localStorage.setItem(key, JSON.stringify(value));
-        } catch {}
+        } catch {
+          return;
+        }
       },
 
       clear(key: string): void {
         try {
           localStorage.removeItem(key);
-        } catch {}
+        } catch {
+          return;
+        }
       },
     }),
     [],
