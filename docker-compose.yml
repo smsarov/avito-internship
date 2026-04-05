@@ -4,11 +4,13 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    env_file:
+      - path: server/.env
+        required: false
     ports:
       - "8080:8080"
     environment:
       PORT: "8080"
-      GIGACHAT_CREDENTIALS: ${GIGACHAT_CREDENTIALS:-}
 
   client:
     restart: unless-stopped
