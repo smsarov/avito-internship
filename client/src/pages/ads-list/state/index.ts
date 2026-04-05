@@ -1,7 +1,3 @@
-export {
-  AdsListProvider,
-  useAdsListState,
-  useAdsListDispatch,
-} from "./context";
-
-export type { AdsListState, AdsListAction } from "./types";
+export { useAdsListStore } from "./store";
+export type { AdsListStore } from "./store";
+export type { AdsListState } from "./types";

@@ -6,15 +6,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useAdsListDispatch, useAdsListState } from "../state";
+import { useAdsListActions } from "../hooks/useAdsListActions";
+import { useAdsListState } from "../hooks/useAdsListState";
 import { SORT_OPTIONS, type SortKey } from "../constants";
 
 export function SortSelect() {
   const { sort } = useAdsListState();
-  const dispatch = useAdsListDispatch();
+  const { setSort } = useAdsListActions();
 
   const handleSortChange = (value: SortKey) => {
-    dispatch({ type: "SET_SORT", payload: value });
+    setSort(value);
   };
 
   return (

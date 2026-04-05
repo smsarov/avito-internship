@@ -3,19 +3,19 @@ import ListIcon from "@icons/list.svg";
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-import { useAdsListDispatch, useAdsListState } from "../state";
+import { useAdsListActions } from "../hooks/useAdsListActions";
+import { useAdsListState } from "../hooks/useAdsListState";
 
 export function ViewToggle() {
   const { view } = useAdsListState();
-  const dispatch = useAdsListDispatch();
+  const { setView } = useAdsListActions();
 
   return (
     <ToggleGroup
       type="single"
       value={view}
       onValueChange={(v) => {
-        if (v === "grid" || v === "list")
-          dispatch({ type: "SET_VIEW", payload: v });
+        if (v === "grid" || v === "list") setView(v);
       }}
       size="sm"
       className="w-full"

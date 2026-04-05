@@ -16,28 +16,30 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Typography } from "@/components/ui/typography";
 
-import { useAdsListDispatch, useAdsListState } from "../state";
+import { useAdsListActions } from "../hooks/useAdsListActions";
+import { useAdsListState } from "../hooks/useAdsListState";
 import { CATEGORY_OPTIONS } from "../constants";
 
 import type { ItemCategory } from "@/features/ads/schema";
 
 export function Filters() {
   const { categories, revisionOnly } = useAdsListState();
-  const dispatch = useAdsListDispatch();
+  const { toggleCategory, setRevisionOnly, resetFilters } =
+    useAdsListActions();
 
   const hasActiveFilters =
     Object.values(categories).some(Boolean) || revisionOnly;
 
   const handleCategoryChange = (category: ItemCategory) => () => {
-    dispatch({ type: "TOGGLE_CATEGORY", payload: category });
+    toggleCategory(category);
   };
 
   const handleRevisionOnlyChange = (value: boolean) => {
-    dispatch({ type: "SET_REVISION_ONLY", payload: value });
+    setRevisionOnly(value);
   };
 
   const handleResetFilters = () => {
-    dispatch({ type: "RESET_FILTERS" });
+    resetFilters();
   };
 
   return (

@@ -9,7 +9,7 @@ import { sortItemsByPrice } from "@/features/ads/utils/sort-items-by-price";
 
 import { useDebounce } from "@/hooks/useDebounce";
 
-import { useAdsListState } from "../state";
+import { useAdsListState } from "./useAdsListState";
 import { getItemsPerPage, SORT_OPTIONS } from "../constants";
 
 export function useAdsListQuery() {

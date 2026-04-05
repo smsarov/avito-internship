@@ -4,7 +4,7 @@ import { Card, CardSkeleton } from "./card";
 
 import { getItemsPerPage } from "../constants";
 
-import { useAdsListState } from "../state";
+import { useAdsListState } from "../hooks/useAdsListState";
 import { useAdsListQuery } from "../hooks/useAdsListQuery";
 
 export function Content() {

@@ -6,11 +6,12 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
-import { useAdsListDispatch, useAdsListState } from "../state";
+import { useAdsListActions } from "../hooks/useAdsListActions";
+import { useAdsListState } from "../hooks/useAdsListState";
 
 export function Search() {
   const { search } = useAdsListState();
-  const dispatch = useAdsListDispatch();
+  const { setSearch } = useAdsListActions();
 
   return (
     <InputGroup className="flex-1 ring-transparent bg-segmented-control-background dark:bg-segmented-control-background placeholder:text-input-placeholder-muted">
@@ -19,9 +20,7 @@ export function Search() {
         type="text"
         role="searchbox"
         value={search}
-        onChange={(e) =>
-          dispatch({ type: "SET_SEARCH", payload: e.target.value })
-        }
+        onChange={(e) => setSearch(e.target.value)}
       />
       <InputGroupAddon
         align="inline-end"

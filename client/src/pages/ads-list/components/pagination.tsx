@@ -10,7 +10,8 @@ import {
 import { usePagination } from "@/hooks/usePagination";
 
 import { useAdsListQuery } from "../hooks/useAdsListQuery";
-import { useAdsListDispatch, useAdsListState } from "../state";
+import { useAdsListActions } from "../hooks/useAdsListActions";
+import { useAdsListState } from "../hooks/useAdsListState";
 
 import { getItemsPerPage } from "../constants";
 
@@ -18,7 +19,7 @@ export function Pagination() {
   const { data: { total = 0 } = {}, isFetching } = useAdsListQuery();
 
   const { page, view } = useAdsListState();
-  const dispatch = useAdsListDispatch();
+  const { setPage } = useAdsListActions();
 
   const { totalPages, pageNumbers, hasPrev, hasNext } = usePagination({
     page,
@@ -27,15 +28,15 @@ export function Pagination() {
   });
 
   const handlePageChange = (page: number) => {
-    dispatch({ type: "SET_PAGE", payload: page });
+    setPage(page);
   };
 
   const handlePreviousPage = () => {
-    if (hasPrev) dispatch({ type: "SET_PAGE", payload: page - 1 });
+    if (hasPrev) setPage(page - 1);
   };
 
   const handleNextPage = () => {
-    if (hasNext) dispatch({ type: "SET_PAGE", payload: page + 1 });
+    if (hasNext) setPage(page + 1);
   };
 
   if (totalPages <= 1) return null;
