@@ -2,20 +2,18 @@ import GigaChat from "gigachat";
 import { Agent } from "node:https";
 
 const credentials = process.env.GIGACHAT_CREDENTIALS;
-if (!credentials) {
-  throw new Error(
-    "GIGACHAT_CREDENTIALS is not set.",
-  );
-}
 
 const httpsAgent = new Agent({
   rejectUnauthorized: false,
 });
 
-export const gigachat = new GigaChat({
-  timeout: 600,
-  model: "GigaChat",
-  credentials,
-  httpsAgent: httpsAgent,
-});
+/** Present only when `GIGACHAT_CREDENTIALS` is set (required for AI suggestion routes). */
+export const gigachat: GigaChat | null = credentials
+  ? new GigaChat({
+      timeout: 600,
+      model: "GigaChat",
+      credentials,
+      httpsAgent,
+    })
+  : null;
 

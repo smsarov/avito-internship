@@ -176,6 +176,14 @@ fastify.put<ItemUpdateRequest>("/items/:id", (request, reply) => {
 });
 
 fastify.post("/items/suggestions/description", async (request, reply) => {
+  if (!gigachat) {
+    reply.status(503).send({
+      success: false,
+      error: "GigaChat is not configured (set GIGACHAT_CREDENTIALS).",
+    });
+    return;
+  }
+
   try {
     const body = ItemSuggestInSchema.parse(request.body);
     const response = await gigachat.chat({
@@ -196,6 +204,14 @@ fastify.post("/items/suggestions/description", async (request, reply) => {
 });
 
 fastify.post("/items/suggestions/price", async (request, reply) => {
+  if (!gigachat) {
+    reply.status(503).send({
+      success: false,
+      error: "GigaChat is not configured (set GIGACHAT_CREDENTIALS).",
+    });
+    return;
+  }
+
   try {
     const body = ItemSuggestInSchema.parse(request.body);
     const response = await gigachat.chat({
@@ -223,7 +239,7 @@ fastify.post("/items/suggestions/price", async (request, reply) => {
 
 const port = Number(process.env.PORT ?? "8080");
 
-fastify.listen({ port }, function (err, _address) {
+fastify.listen({ port, host: "0.0.0.0" }, function (err, _address) {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
